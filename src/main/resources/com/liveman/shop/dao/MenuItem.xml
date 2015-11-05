@@ -1,0 +1,36 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.liveman.shop.dao.MenuTableDao">
+
+	<select id="getMenuById" parameterType="int" resultType="MenuItem">
+		select *
+		from menuTable where id=#{id} order by id
+	</select>
+
+	<select id="getChildrenMenuById" parameterType="int" resultType="MenuItem">
+		select * from menuTable where parentId = #{id} order by id
+	</select>
+
+	<select id="getChildrenMenuFromRoot" resultType="MenuItem">
+		select * from
+		menuTable where parentId is null order by id
+	</select>
+
+	<select id="getAllItemFromRoot" resultType="MenuItem">
+		select * from
+		menutable where parentId is not null order by id
+	</select>
+
+	<insert id="saveMenuItem" parameterType="MenuItem"
+		useGeneratedKeys="true" keyProperty="id">
+		insert
+		menuTable(parentId,url,picture,type,name)
+		values(#{parentId},#{url},#{picture},#{type},#{name})
+	</insert>
+	
+	<delete id="deleteAllOthers">
+		delete from menutable where parentId is not null
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,85 @@
+.deleteline {
+	text-decoration: line-through;
+	font-style: italic;
+}
+
+.categorysli li {
+	float: left;
+	display: inline-block;
+}
+
+.col-md-7>div {
+	padding: 2px;
+}
+
+.grid-form>div {
+	padding: 5px;
+}
+
+.grid-form span {
+	width: 20%;
+}
+
+.grid-form-rainy input[type="text"], .grid-form input[type="password"] {
+	width: 100%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline: none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+
+.grid-form-rainy select, .grid-form select {
+	width: 100%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline: none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+
+.grid-form-rainy input[type="submit"] {
+	background: #EF5F21;
+	padding: 0.4em 1em;
+	color: #fff;
+	font-size: 1.2em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	display: inline-block;
+	border: none;
+	outline: none;
+}
+
+#sortable{
+	list-style-type: none
+}
+
+#sortable li {
+	font-size: 1.4em;
+	height: 2.2em;
+	margin: 0 3px 3px;
+	padding: 0.4em 0.4em 0.4em 1.5em;
+}
+
+#sortable li.marginleft1{
+	
+}
+#sortable li.marginleft2{
+	margin-left: 33px;
+}
+#sortable li.marginleft3{
+	margin-left: 63px;
+}
+#sortable li.marginleft4{
+	margin-left:93px;
+}
+#sortable li.marginleft5{
+	margin-left:123px;
+}
+#sortable li.marginleft6{
+	margin-left:153px;
+}

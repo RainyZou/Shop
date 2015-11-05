@@ -1,0 +1,5 @@
+1 spring-core-config.xml
+	DAO
+	Service
+	Transaction
+	Datasource

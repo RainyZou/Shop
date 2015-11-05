@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liveman.shop.dao.order.PushMapper" >
+
+<select id="selectProductBuyHistory"  parameterType="int" resultType="productBuyHistoryVO">
+	 select product.`name`,orderdetail.productCount,orders.createTime,`user`.username 
+	 from orderdetail,orders,`user`,product where productId=#{productId} and orderdetail.orderId=orders.id 
+	 and orders.userId=`user`.id and product.id=#{productId}
+</select>
+
+</mapper>

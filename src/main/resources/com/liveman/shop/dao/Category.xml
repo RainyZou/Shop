@@ -1,0 +1,75 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liveman.shop.dao.CategoryDao">
+	<select id="selectCategoryByProductId" resultType="com.liveman.shop.entity.product.Category"
+		parameterType="int">
+		select c.id id, c.cname cname from category
+		c,productCategory pc where pc.productId= #{id} and pc.categoryId= c.id
+	</select>
+
+	<select id="getCategoryById" resultType="com.liveman.shop.entity.product.Category"
+		parameterType="int" resultMap="fullCategory">
+		select id , cname from category where id
+		= #{id}
+	</select>
+
+	<select id="getSingleCategory" resultType="com.liveman.shop.entity.product.Category"
+		parameterType="int">
+		select id , cname from category where id = #{id}
+	</select>
+
+	<resultMap id="fullCategory" type="com.liveman.shop.entity.product.Category">
+		<id property="id" column="id" />
+		<result property="cname" column="cname" />
+		<association property="parent" column="id" select="getSingleCategory" />
+		<collection property="children" select="getChildList"
+			javaType="ArrayList" column="id" ofType="Category"></collection>
+	</resultMap>
+
+
+	<select id="getChildList" statementType="CALLABLE"
+		parameterType="integer" resultMap="resultMap">
+		<![CDATA[
+           {call pro_show_childLst(#{id,mode=IN,jdbcType=INTEGER})} 
+       ]]>
+	</select>
+
+	<resultMap type="com.liveman.shop.entity.product.Category"
+		id="resultMap">
+		<id property="id" column="id" />
+		<result property="cname" column="cname" />
+		<association property="count" column="id" select="selectCount"></association>
+	</resultMap>
+
+	<select id="selectCount" parameterType="int" resultType="int">
+		select
+		count(*) from
+		productcategory where categoryid=#{id}
+	</select>
+
+
+
+
+	<resultMap type="Category" id="treeDataResultMap">
+		<id column="id" property="id" />
+		<result column="cname" property="cname" />
+		<association property="parent" column="parentid" select="getSingleCategory" />
+		<collection property="children" column="id" javaType="arrayList"
+			ofType="Category" select="getChildren" />
+	</resultMap>
+
+	<select id="getChildren" parameterType="int" resultMap="treeDataResultMap">
+		select
+		id, cname , parentid from category where parentid = #{id}
+	</select>
+
+	<select id="getCategoryTree" parameterType="int" resultMap="treeDataResultMap">
+		select id, cname , parentid from category where id = #{id}
+	</select>
+
+	<insert id="addCategory" parameterType="Category"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into Category(cname,
+		parentid) values(#{cname},#{parent.id})
+	</insert>
+
+</mapper>

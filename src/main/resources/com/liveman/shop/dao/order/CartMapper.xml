@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liveman.shop.dao.order.CartMapper" >
+
+<resultMap type="cartVO" id="cartsByUserIdMap">
+	<id property="cart.id" column="id"/>
+	<result property="cart.userId" column="userId"/>
+	<result property="cart.productId" column="productId"/>
+	<result property="cart.productCount" column="productCount"/>
+	<result property="cart.createTime" column="createTime"/>
+	<result property="product.id" column="productId"/>
+	<result property="product.name" column="name"/>
+	<result property="product.currentPrice" column="currentPrice"/>
+	<result property="product.standardPrice" column="standardPrice"/>
+	<result property="product.defaultPicturePath" column="defaultPicturePath"/>
+</resultMap>
+
+
+<insert id="insertCart" parameterType="cart">
+	insert into cart(userId,productId,productCount,createTime) values(#{userId},#{productId},#{productCount},#{createTime})
+</insert>
+
+<delete id="deleteCartByIds" parameterType="list">
+	delete from cart 
+	<where>
+	    id in 
+		<if test="list!=null">
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+		    #{item} 
+		</foreach>
+		</if>
+		</where>
+</delete>
+
+<delete id="deleteAllCartsByUserId" parameterType="int">
+	delete from cart where userId = #{userId}
+</delete>
+
+<update id="updateCartById" parameterType="cart">
+	update cart set userId=#{userId},productId=#{productId},productCount=#{productCount},createTime=#{createTime} 
+	where id=#{id}
+</update>
+
+<select id="findCartsByUserId" parameterType="int" resultMap="cartsByUserIdMap">
+	select cart.*,name,currentPrice,standardPrice,defaultPicturePath from cart,product where userId=#{userId} and productId=product.id
+</select>
+
+<select id="findCartById" parameterType="int" resultType="cart">
+	select * from cart where id=#{id}
+</select>
+<select id="findCartsByProductIds" resultMap="cartsByUserIdMap">
+	select cart.*,name,currentPrice,standardPrice,defaultPicturePath from cart,product
+	<where>
+	    userId = #{userId} and productId=product.id and productId in 
+		<if test="ids!=null">
+		<foreach collection="ids" item="item" open="(" separator="," close=")">
+		    #{item} 
+		</foreach>
+		</if>
+		</where>
+</select>
+
+<select id="findCartCount" parameterType="int" resultType="int">
+	select count(*) from cart where userId=#{userId}
+</select>
+
+<select id="findCartByProductId" parameterType="cart" resultType="cart">
+	select * from cart where userId=#{userId} and productId=${productId}
+</select>
+
+</mapper>

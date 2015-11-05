@@ -1,0 +1,181 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liveman.shop.dao.ProductDao">
+
+	<select id="getProductByCategoryId" resultType="com.liveman.shop.entity.product.Product">
+		select p.id id,
+		currentPrice, standardPrice, name ,
+		shortDescription, details ,
+		defaultPicturePath
+		from product p ,
+		productCategory pc where p.id =
+		pc.productId and pc.categoryId =
+		#{0} limit #{1} , #{2}
+	</select>
+
+	<select id="getRelateProduct" resultType="com.liveman.shop.entity.product.Product">
+		select * from product
+		where id in ( select pc2.productId from
+		productcategory pc1 ,
+		productcategory pc2 where pc1.productId = #{0} and
+		pc1.categoryId=
+		pc2.categoryId) and id !=#{0} order by datetime desc limit 0,
+		#{1}
+	</select>
+
+	<select id="getProductByProduct" parameterType="Map" resultMap="productMap">
+		select * from product
+		where 1= 1
+		<if test="product.name != null">
+			and name like concat('%',#{product.name},'%')
+		</if>
+		<if test="product.type != null">
+			and type = #{product.type}
+		</if>
+		limit #{start}, #{size}
+	</select>
+
+	<select id="getCountByCategoryId" parameterType="int"
+		resultType="int">
+		select count(*)
+		from product p ,
+		productCategory pc where
+		p.id = pc.productId and pc.categoryId =
+		#{categoryId} order by datetime
+		desc
+	</select>
+
+	<select id="getProductById" parameterType="int" resultMap="productMap">
+		select id,currentPrice, standardPrice, name
+		,shortDescription,details,defaultPicturePath
+		from product where id =
+		#{id}
+	</select>
+
+	<select id="getSimpleProductByIds" parameterType="list"
+		resultType="com.liveman.shop.entity.product.Product">
+		select id,name,currentPrice,standardPrice,defaultPicturePath from
+		product
+		<where>
+			id in
+			<if test="list!=null">
+				<foreach collection="list" item="item" open="(" separator=","
+					close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="productMap" type="com.liveman.shop.entity.product.Product">
+		<id property="id" column="id" />
+		<result property="currentPrice" column="currentPrice" />
+		<result property="standardPrice" column="standardPrice" />
+		<result property="name" column="t_research_area" />
+		<result property="shortDescription" column="shortDescription" />
+		<result property="details" column="details" />
+		<result property="defaultPicturePath" column="defaultPicturePath" />
+		<collection property="pictures" column="id" javaType="ArrayList"
+			ofType="Picture" select="selectPictureByProductId"></collection>
+		<collection property="categorys" column="id" javaType="ArrayList"
+			ofType="Category" select="selectCategoryByProductId"></collection>
+	</resultMap>
+
+	<select id="selectCategoryByProductId" resultType="com.liveman.shop.entity.product.Category"
+		parameterType="int">
+		select c.id id, c.cname cname from category
+		c,productCategory pc where pc.productId= #{id} and pc.categoryId= c.id
+	</select>
+
+	<select id="selectPictureByProductId" resultType="com.liveman.shop.entity.product.Picture"
+		parameterType="int">
+		select id, picturePath from picture where productId=
+		#{id}
+	</select>
+
+	<select id="getProductByName" resultMap="productMap">
+		select * from product
+		where name like concat('%',#{0},'%') limit #{1} , #{2}
+	</select>
+
+	<select id="getLatestProduct" resultType="com.liveman.shop.entity.product.Product">
+		select * from product
+		where type = 'product' order by datetime desc limit 0,6
+	</select>
+
+	<select id="getTopSeller" parameterType="int"
+		resultType="com.liveman.shop.entity.product.Product">
+		select p.* ,
+		sum(o.productCount) count from product p left
+		JOIN orderdetail o on
+		p.id = o.productId where p.type='product' group
+		by p.id order by count
+		desc limit 0,#{count};
+	</select>
+	<select id="getSuggestionProduct" parameterType="int"
+		resultType="com.liveman.shop.entity.product.Product">
+		select p.*, s.id
+		sid from product p LEFT JOIN suggestproduct
+		s on s.productId = p.id
+		order by sid desc limit 0, #{count}
+	</select>
+
+
+	<insert id="addProduct" parameterType="Product"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		product(name,currentPrice,standardPrice,shortDescription,details,defaultPicturePath,type,url,datetime)
+		values(#{name},
+		#{currentPrice},#{standardPrice},#{shortDescription},#{details},#{defaultPicturePath},#{type},#{url},#{datetime})
+	</insert>
+
+	<update id="updateProduct" parameterType="Product">
+
+		update product set
+		name=#{name},currentPrice=#{currentPrice},standardPrice=#{standardPrice},shortDescription=#{shortDescription},
+		details=#{details},defaultPicturePath =#{defaultPicturePath},type
+		=#{type},url=#{url},datetime=#{datetime} where id=#{id}
+	</update>
+
+	<delete id="deleteProductCategory" parameterType="int">
+		delete from
+		productCategory where productId = #{productId}
+	</delete>
+
+	<insert id="insertProductCategory">
+
+		insert into productCategory(productId,categoryId)
+		values(#{0},#{1})
+
+	</insert>
+
+	<delete id="deletePictures" parameterType="int">
+		delete from picture
+		where productId =#{productId}
+	</delete>
+
+	<insert id="insertPictures">
+		insert into picture(productId,picturepath)
+		values(#{0},#{1})
+	</insert>
+	<select id="getCountByName"  resultType="int">
+		select count(*) from
+		product
+		where name like concat('%',#{0},'%') 
+	</select>
+	
+	<select id="getCountByCondition" parameterType="Map" resultType="int">
+		select count(*) from
+		product
+		<where>
+			1 =1
+			<if test="name!=null">
+				and name like concat('%',#{name},'%')
+			</if>
+			<if test="type!=null">
+				and type = #{type}
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC  
+    "-//mybatis.org//DTD Config 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 批量别名配置 -->
+	<typeAliases>
+		<typeAlias type="com.liveman.shop.entity.product.Category"
+			alias="Category" />
+		<typeAlias type="com.liveman.shop.entity.MenuItem" alias="MenuItem" />
+		<package name="com.liveman.shop.entity.order" />
+		<package name="com.liveman.shop.entity.product" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="com/liveman/shop/dao/Student.xml" />
+		<mapper resource="com/liveman/shop/dao/Teacher.xml" />
+		<mapper resource="com/liveman/shop/dao/Product.xml" />
+		<mapper resource="com/liveman/shop/dao/Category.xml" />
+		<mapper resource="com/liveman/shop/dao/user/AddressMapper.xml" />
+		<mapper resource="com/liveman/shop/dao/user/ResetPasswordMapper.xml" />
+		<mapper resource="com/liveman/shop/dao/user/UserImageMapper.xml" />
+		<mapper resource="com/liveman/shop/dao/user/UserMapper.xml" />
+		<mapper resource="com/liveman/shop/dao/order/CartMapper.xml" />
+		<mapper resource="com/liveman/shop/dao/MenuItem.xml" />
+	</mappers>
+
+</configuration>

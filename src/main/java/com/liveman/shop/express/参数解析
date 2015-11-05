@@ -1,0 +1,54 @@
+快递API网址
+http://www.kuaidiapi.cn/
+
+快递API传入参数
+http://www.kuaidiapi.cn/rest/?uid=10002&key=xxxxxxx&order=6108241734&id=dtwl 
+名称 	类型 	必须 	描述
+uid 	String 	是 	用户编号、用户注册生成的用户标识
+key 	String 	是 	签名参数、可以直接使用“授权密钥”或者加密签名传输(参数issign决定)，加密规则 uid={0}&key={1}&id={2}&order={3}&time={4} 以utf-8的编码方式进行MD5加密，点击此处申请 授权秘钥
+order 	String 	是 	快递单号、注意区分大小写
+id 	String 	是 	快递代号、点击 代码对照 查看所有快递对应代号
+time 	String 	否 	查询时间、取当前时间，格式yyyy-MM-dd HH:mm:ss
+issign 	String 	否 	签名加密、值分为（true,false），默认false
+ord 	String 	否 	排序规则、值分为(asc、desc )，asc：按时间旧到新，desc反之，默认值：asc
+show 	String 	否 	返回格式、值分为( json、xml、html )3种类型
+last 	String 	否 	最后一条、值有true、false 2 种，true只返回最后条记录
+
+
+快递单号接口快递API返回参数
+{"id": "dtwl","name": "大田物流", "order": "6108241734","message": "","errcode": 0,"status": 3,"data": [{"time": "2012-03-21 11:41:06","content": "长沙站 XXX"},{"time": "2012-03-21 09:16:27", "content": "到达XXX"}]} 
+名称 	类型 	描述
+id 	String 	快递代号、点击 代码对照 查看所有快递对应代号
+name 	String 	快递名称
+order 	String 	快递单号、注意区分大小写
+message 	String 	提示信息、如果查询失败，此处返回失败原因,查询成功则该值为空
+errcode 	String 	错误代号、点击 代码对照 查看所有错误代号
+status 	Int 	单号状态、点击 代码对照 查看所有单号状态
+data 	String 	跟踪数据、包含(time、content)
+time 	String 	记录时间、每条跟踪信息的时间
+content 	String 	具体内容、每条跟踪信息的描述，如到达某某地区等等
+
+快递API错误代码
+编码 	描述
+0000 	接口调用正常,无任何错误
+0001 	传输参数格式有误
+0002 	用户编号(uid)无效
+0003 	用户被禁用
+0004 	key无效
+0005 	快递代号(id)无效
+0006 	访问次数达到最大额度
+0007 	查询服务器返回错误
+
+快递API单号状态
+编码 	描述
+-1 	待查询、在批量查询中才会出现的状态,指提交后还没有进行任何更新的单号
+0 	查询异常
+1 	暂无记录、单号没有任何跟踪记录
+2 	在途中
+3 	派送中
+4 	已签收
+5 	拒收、用户拒签
+6 	疑难件、以为某些原因无法进行派送
+7 	无效单
+8 	超时单
+9 	签收失败

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liveman.shop.dao.order.OrderMapper" >
+	<sql id="query_order_select">
+		select orders.*,
+		address.id,
+		address.user_id,
+		address.alias,
+		address.name,
+		address.address_sheng,
+		address.address_shi,
+		address.address_xian,
+		address.address_zhen,
+		address.address_detail,
+		address.phone,
+		address.is_default,
+		orderdetail.id o_id,
+		orderdetail.productId o_productId,
+		orderdetail.productCount o_productCount,
+		orderdetail.orderId o_orderId,
+		product.id p_id,
+		product.name p_name,
+		product.currentPrice p_currentPrice,
+		product.standardPrice p_standardPrice,
+		product.defaultPicturePath p_defaultPrcturePath
+		from orders,address,orderdetail,product 
+	</sql>
+	<resultMap type="orderVO" id="allOrdersMap">
+		<id property="order.id" column="id"/>
+		<result property="order.orderId" column="orderId"/>
+		<result property="order.userId" column="userId"/>
+		<result property="order.createTime" column="createTime"/>
+		<result property="order.orderStatus" column="orderStatus"/>
+		<result property="order.payStatus" column="payStatus"/>
+		<result property="order.receiveStatus" column="receiveStatus"/>
+		<result property="order.payStyle" column="payStyle"/>
+		<result property="order.orderPrice" column="orderPrice"/>
+		<result property="order.shipPrice" column="shipPrice"/>
+		<result property="order.allPrice" column="allPrice"/>
+		<result property="order.deliverTime" column="deliverTime"/>
+		<result property="order.shipName" column="shipName"/>
+		<result property="order.shipOrderNumber" column="shipOrderNumber"/>
+		<result property="order.payTime" column="payTime"/>
+		<result property="order.addressId" column="addressId"/>
+		<result property="order.comment" column="comment"/>	
+		<result property="order.evaluationId" column="evaluationId"/>
+	    <association property="address" resultMap="com.liveman.shop.dao.user.AddressMapper.BaseResultMap"></association>
+	    <collection property="order.details" ofType="com.liveman.shop.entity.order.OrderDetail">
+	    	<id property="id" column="o_id"></id>
+	    	<result property="productCount" column="o_productCount"/>
+	    	<result property="orderId" column="o_orderId"/>
+	    	<association property="product" javaType="com.liveman.shop.entity.product.Product">
+	    		<id property="id" column="p_id"/>
+	    		<result property="name" column="p_name"/>	
+	    		<result property="currentPrice" column="p_currentPrice"/>	
+	    		<result property="standardPrice" column="p_standardPrice"/>	
+	    		<result property="defaultPicturePath" column="p_defaultPrcturePath"/>	
+	    	</association>
+	    </collection>
+	</resultMap>
+
+	<insert id="insertOrder" parameterType="order">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+		
+		insert into orders(orderId,userId,createTime,orderStatus,payStatus,receiveStatus,orderPrice,shipPrice,allPrice,deliverTime,payStyle,shipName,shipOrderNumber,payTime,addressId,comment)
+		         values(#{orderId},#{userId},#{createTime},#{orderStatus},#{payStatus},#{receiveStatus},#{orderPrice},#{shipPrice},#{allPrice},#{deliverTime},#{payStyle},#{shipName},#{shipOrderNumber},#{payTime},#{addressId},#{comment})
+	</insert>
+	<insert id="insertOrderDetail" parameterType="list">
+		insert into orderDetail(productId,productCount,orderId) values
+		<foreach collection="list" item="item" index="index" separator="," > 
+		 	(#{item.product.id},#{item.productCount},#{item.orderId})
+		</foreach>
+	</insert>
+	
+	<select id="selectAllOrders" parameterType="int" resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where userId=#{userId} and addressId=address.id and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	<select id="selectOrderById" parameterType="int" resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.id=#{orderId} and addressId=address.id and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	<select id="selectOrdersByPayStatus"  resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.userId=#{userId} and payStatus=#{payStatus}  and orderStatus!='取消' 
+		and addressId=address.id and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	<select id="selectOrdersByOrderStatus"  resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.userId=#{userId} and orderStatus=#{orderStatus} and payStatus='支付' and addressId=address.id 
+		and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	<select id="selectOrdersByCancelStatus"  resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.userId=#{userId} and orderStatus='取消' and payStatus='未支付' and addressId=address.id 
+		and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	
+	<select id="selectOrdersByReceiveStatus"  resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.userId=#{userId} and receiveStatus=#{receiveStatus} and orderStatus!='取消' 
+		and payStatus='支付' and orderStatus!='未发货' and orderStatus!='已签收' 
+		and addressId=address.id and orders.id=orderdetail.orderId and productId=product.id  ORDER BY createTime desc
+	</select>
+	
+	<select id="selectOrdersByEvaluation"  resultMap="allOrdersMap">
+		<include refid="query_order_select"></include>
+		where orders.userId=#{userId} and (evaluationId is null or evaluationId='') and orderStatus!='取消' 
+		and payStatus='支付' and receiveStatus=1 and addressId=address.id and orders.id=orderdetail.orderId 
+		and productId=product.id  ORDER BY createTime desc
+	</select>
+	
+	<update id="updateEvaluation">
+		update orders set evaluationId=#{evaluationId} where orders.id=#{id}
+	</update>
+	<update id="updatePayStatus">
+		update orders set payStatus=#{payStatus},payTime=#{payTime},payStyle=#{payStyle} where orders.id=#{id}
+	</update>
+	<update id="updateReceiveStatus">
+		update orders set receiveStatus=#{receiveStatus} where orders.id=#{id}
+	</update>
+	<update id="updateOrderStatus">
+		update orders set orderStatus=#{orderStatus} where orders.id=#{id}
+	</update>
+	<update id="updateShipStatus">
+		update orders set orderStatus=#{orderStatus} deliverTime=#{deliverTime},shipName=#{shipName},shipOrderNumber=#{shipOrderNumber} where orders.id=#{id}
+	</update>
+	<update id="updateOrder">
+		update orders set 
+		orderId=#{orderId},
+		userId=#{userId},
+		createTime=#{deliverTime},
+		orderStatus=#{orderStatus},
+		payStatus=#{payStatus},
+		orderPrice=#{orderPrice},
+		shipPrice=#{shipPrice},
+		allPrice=#{allPrice},
+		deliverTime=#{deliverTime},
+		shipName=#{shipName},
+		shipOrderNumber=#{shipOrderNumber},
+		payTime=#{payTime},
+		addressId=#{addressId},
+		comment=#{comment},
+		evaluationId=#{evaluationId},
+		receiveStatus=#{receiveStatus},
+		payStyle=#{payStyle},
+		where orders.id=#{id}
+	</update>
+	
+</mapper>

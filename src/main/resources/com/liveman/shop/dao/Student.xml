@@ -1,0 +1,13 @@
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liveman.shop.dao.StudentDao">
+	<resultMap id="studentResultMap" type="com.liveman.shop.entity.Student">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="gender" column="gender" />
+		<result property="major" column="major" />
+		<result property="grade" column="grade" />
+		<!--相应地，在此引用supervisorResultMap，亦采用 命名空间名.resultMap的id的形式。 -->
+		<!--<association property="supervisor"
+			resultMap="com.liveman.shop.dao.TeacherDao.supervisorResultMap" /> -->
+	</resultMap>
+</mapper>

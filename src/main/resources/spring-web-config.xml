@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+			   http://www.springframework.org/schema/context
+	           http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	           http://www.springframework.org/schema/tx
+	           http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	           http://www.springframework.org/schema/aop
+	           http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+	           http://www.springframework.org/schema/mvc  
+      		   http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+	<!-- 启动自动扫描 该包下所有的Bean(@Controller) -->
+	<context:component-scan base-package="com.liveman.shop.controller" />
+	<context:component-scan base-package="com.liveman.shop.aop" />
+	<context:annotation-config />
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+
+
+
+
+	<!-- 定义视图解析器 -->
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="suffix"> <value>.jsp</value> </property> </bean> -->
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 全局异常处理器 -->
+	<bean class="com.liveman.shop.exception.ShopExceptionResolver"></bean>
+</beans>	

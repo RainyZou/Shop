@@ -1,0 +1,141 @@
+@CHARSET "UTF-8";
+
+.tip-span {
+  color: #A09F9F;
+}
+
+.register-top-grid span, .register-bottom-grid span {
+  font-size: 1em;
+  display: block;
+  color: #A09F9F;
+}
+.register-top-grid input[type="text"], .register-bottom-grid input[type="password"] {
+	width: 100%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline:none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+.yanzhengma input[type="text"] {
+	width: 20%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline:none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+.register-top-grid input[type="button"], .register-top-grid input[type="submit"] {
+	background: #EF5F21;
+	padding: 0.4em 1em;
+	color: #fff;
+	font-size:1.2em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	display: inline-block;
+	border:none;
+	outline:none;
+}
+.register-top-grid input[type="button"]:hover, .register-top-grid input[type="submit"]:hover{
+	background:#000;
+}
+.register-bottom-grid input[type="button"], .register-bottom-grid input[type="submit"] {
+	background: #EF5F21;
+	padding: 0.4em 1em;
+	color: #fff;
+	font-size:1.2em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	display: inline-block;
+	border:none;
+	outline:none;
+}
+.register-bottom-grid input[type="button"]:hover, .register-bottom-grid input[type="submit"]:hover{
+	background:#000;
+}
+
+.grid-form span {
+	width: 20%;
+}
+.grid-form input[type="text"],.grid-form input[type="password"] {
+	width: 100%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline:none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+.grid-form select, .grid-form select {
+	width: 13%;
+	padding: 1em;
+	margin: 1em 0;
+	background: none;
+	outline:none;
+	border: 1px solid #A09F9F;
+	-webkit-appearance: none;
+}
+.grid-form input[type="submit"] {
+	background: #EF5F21;
+	padding: 0.4em 1em;
+	color: #fff;
+	font-size:1.2em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	display: inline-block;
+	border:none;
+	outline:none;
+}
+label.error {
+	color: #F30;
+	font-weight: normal;
+}
+
+.content-head {
+	padding: 0 0 20px 0;
+	color: #000;
+	width: 81%;
+	font-family: "Lato", sans-serif;
+}
+
+.tb-icon {
+	animation: 0.2s ease 0s normal none 1 running icon-jump;
+	float:left;
+	margin:4px 5px 0 0;
+	width:16px;
+	height:16px;
+	background:url(../images/tao-400-340.png) no-repeat;
+}
+.tb-favorite {
+	background-position:-120px 0;
+}
+.tb-share {
+	background-position:-100px 0;
+}
+.tb-li{
+	padding: 10px;
+	float:left;
+	display:inline;
+}
+
+.address-tb thead th {
+	height: 32px;
+	line-height: 32px;
+	text-align: left;
+	background: #f5f5f5;
+	color: #666;
+	font-weight: 400;
+	padding: 0 10px 0 10px;
+}
+
+.address-tb td {
+	padding: 10px;
+}

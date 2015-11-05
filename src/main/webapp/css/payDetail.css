@@ -1,0 +1,418 @@
+@CHARSET "UTF-8";
+.wrap{margin:0 auto;max-width:1000px;_width:1000px; color:#333;}
+.wrap:before,
+.wrap:after {display:table; line-height:0; content:"";}
+.wrap:after {clear:both;}
+ul, ol {
+    list-style: outside none none;
+}
+.form-horizontal .btn_suffix {
+    border-left: 0 none;
+    border-radius: 0;
+    font-size: 12px;
+    padding: 0 10px;
+    vertical-align: top;
+}
+.form-horizontal{ font-size:14px;}
+
+.form-search input,
+.form-horizontal input,
+.form-search textarea,
+.form-horizontal textarea,
+.form-search select,
+.form-horizontal select,
+.form-search .help-inline,
+.form-horizontal .help-inline,
+.form-search .uneditable-input,
+.form-horizontal .uneditable-input,
+.form-search .input-prepend,
+.form-horizontal .input-prepend,
+.form-search .input-append,
+.form-horizontal .input-append {display: inline-block;*display: inline;margin-bottom: 0;vertical-align: middle;*zoom:1;}
+
+.form-search .hide,
+.form-horizontal .hide {
+  display: none;
+}
+.form-horizontal .control-group {margin-bottom: 20px;*zoom: 1;}
+
+.form-horizontal .control-group:before,
+.form-horizontal .control-group:after {display: table;line-height: 0;content: "";}
+
+.form-horizontal .control-group:after {clear: both;}
+
+.form-horizontal .control-label {float: left;width: 160px;padding-top: 5px;text-align: right;}
+
+.form-horizontal .controls {*display: inline-block;*padding-left: 20px;margin-left: 180px;*margin-left: 0;}
+
+.form-horizontal .controls:first-child {*padding-left: 180px;}
+
+.form-horizontal .help-block { margin-bottom: 0;}
+
+.form-horizontal input + .help-block,
+.form-horizontal select + .help-block,
+.form-horizontal textarea + .help-block,
+.form-horizontal .uneditable-input + .help-block,
+.form-horizontal .input-prepend + .help-block,
+.form-horizontal .input-append + .help-block {margin-top: 10px;}
+
+.form-horizontal .form-actions {padding-left: 180px;}
+.recharge_form .control-label, .pay_form .control-label {
+    width: 126px;
+}
+.recharge_form .controls, .pay_form .controls {
+    margin-left: 140px;
+}
+.pay_form .pay_info_dl, .pay_form .pay_info_ul {
+    color: #666;
+    padding-bottom: 20px;
+    padding-left: 45px;
+}
+.pay_form .pay_info_ul li {
+    line-height: 24px;
+    margin-bottom: 14px;
+}
+.pay_form .pay_info_dl {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color #ccc #ccc;
+    border-image: none;
+    border-right: 1px solid #ccc;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+    margin-top: 0 !important;
+    padding-bottom: 0;
+    padding-top: 20px;
+}
+.pay_form .pay_info_dl dt {
+    margin-bottom: 14px;
+}
+.pay_form .pay_info_dl dd {
+    margin-bottom: 14px;
+    padding-left: 20px;
+}
+.pay_form .pay_info_dl dd.bank_dd {
+    padding-left: 3px;
+}
+.pay_form .pay_info_dl .bank_item {
+    margin-bottom: 14px;
+}
+.zhuanzhang_tag {
+    border-bottom: 1px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    height: 35px;
+    margin-top: 27px;
+}
+.zhuanzhang_tag li {
+    border-right: 1px solid #d6d6d6;
+    border-top: 3px solid #ccc;
+    color: #999;
+    cursor: pointer;
+    float: left;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    font-weight: normal;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 36px;
+    text-align: center;
+}
+.zhuanzhang_tag li.cur {
+    background-color: #fff;
+    border-top: 3px solid #cf0000;
+    color: #666;
+    height: 33px;
+}
+.help_nav .show li.cur {
+    background-color: #e9edf1;
+}
+.auto_complete .letter_tag li.cur {
+    background-color: #cbddf8;
+    color: #3366cc;
+    font-weight: bold;
+    position: relative;
+}
+.auto_complete .letter_tag li.cur .arr {
+    display: block;
+}
+.recharge_form .card_type, .pay_form .card_type {
+    background: url("../image/pay_online.png") no-repeat scroll 0 -41px;
+    display: inline-block;
+    height: 16px;
+    margin-left: 5px;
+    width: 41px;
+}
+.recharge_form .control-label, .pay_form .control-label {
+    width: 126px;
+}
+.recharge_form .controls, .pay_form .controls {
+    margin-left: 140px;
+}
+.recharge_form .other_bank {
+    font-size: 12px;
+    padding-top: 15px;
+}
+.recharge_form .icon_tit {
+    margin-top: 15px;
+}
+.recharge_form .icon_tit_dialog {
+    margin-top: 6px;
+}
+.recharge_form .add_other_bank {
+    background: url("../image/pay_online.png") no-repeat scroll 0 0 #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    height: 38px;
+    line-height: 38px;
+    margin-bottom: 20px;
+    padding-left: 34px;
+    width: 90px;
+}
+.recharge_form .add_other_bank:hover {
+    background-color: #f9f9f9;
+}
+.go_bank .recharge_form {
+    margin-top: 0;
+}
+.pay_form .pay_info_dl, .pay_form .pay_info_ul {
+    color: #666;
+    padding-bottom: 20px;
+    padding-left: 45px;
+}
+.pay_form .pay_info_dl {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color #ccc #ccc;
+    border-image: none;
+    border-right: 1px solid #ccc;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+    margin-top: 0 !important;
+    padding-bottom: 0;
+    padding-top: 20px;
+}
+.pay_form .pay_info_dl dt {
+    margin-bottom: 14px;
+}
+.pay_form .pay_info_dl dd {
+    margin-bottom: 14px;
+    padding-left: 20px;
+}
+.pay_form .pay_info_dl dd.bank_dd {
+    padding-left: 3px;
+}
+.pay_form .pay_info_dl .bank_item {
+    margin-bottom: 14px;
+}
+.clearfix:before,.clearfix:after {display: table;content:'';}
+.clearfix:after { clear: both; }
+.clearfix { *zoom:1;}
+.icons_list li {
+    float: left;
+    margin: 10px 20px 20px 0;
+    position: relative;
+    width: 200px;
+}
+.icons_list .yuer_num {
+    color: #666;
+    float: right;
+    font-size: 12px;
+    line-height: 24px;
+    margin-right: 60px;
+    padding-top: 5px;
+}
+.icons_list .icon_box {
+    border: 1px solid #dfdfdf;
+    display: inline-block;
+    height: 38px;
+    position: relative;
+    vertical-align: middle;
+}
+.icon_boxBig{
+	border: 1px solid #dfdfdf;
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    vertical-align: middle;	
+}
+.icons_list .icon {
+    background: url("../image/bank.png") no-repeat scroll 0 100px;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    overflow: hidden;
+    text-indent: 10px;
+    width: 123px;
+}
+.icons_list .ICBC {
+    background-position: 0 -720px;
+    text-indent: -999em;
+}
+.icons_list .ABC {
+    background-position: 0 -36px;
+    text-indent: -999em;
+}
+.icons_list .BOC {
+    background-position: 0 0;
+    text-indent: -999em;
+}
+.icons_list .CCB {
+    background-position: 0 -252px;
+    text-indent: -999em;
+}
+.icons_list .CMB {
+    background-position: 0 -396px;
+    text-indent: -999em;
+}
+.icons_list .COMM {
+    background-position: 0 -72px;
+    text-indent: -999em;
+}
+.icons_list .SPDB {
+    background-position: 0 -1080px;
+    text-indent: -999em;
+}
+.icons_list .SZPAB {
+    background-position: 0 -864px;
+    text-indent: -999em;
+}
+.icons_list .BOS {
+    background-position: 0 -1008px;
+    text-indent: -999em;
+}
+.icons_list .POST {
+    background-position: 0 -900px;
+    text-indent: -999em;
+}
+.icons_list .PSBC {
+    background-position: 0 -936px;
+    text-indent: -999em;
+}
+.icons_list .CEB {
+    background-position: 0 -288px;
+    text-indent: -999em;
+}
+.icons_list .CITIC {
+    background-position: 0 -360px;
+    text-indent: -999em;
+}
+.icons_list .CMBC {
+    background-position: 0 -432px;
+    text-indent: -999em;
+}
+.icons_list .CZB {
+    background-position: 0 -468px;
+    text-indent: -999em;
+}
+.icons_list .GDB {
+    background-position: 0 -504px;
+    text-indent: -999em;
+}
+.icons_list .GZCB {
+    background-position: 0 -540px;
+    text-indent: -999em;
+}
+.icons_list .GNXS {
+    background-position: 0 -576px;
+    text-indent: -999em;
+}
+.icons_list .HSB {
+    background-position: 0 -612px;
+    text-indent: -999em;
+}
+.icons_list .HXB {
+    background-position: 0 -648px;
+    text-indent: -999em;
+}
+.icons_list .HZB {
+    background-position: 0 -684px;
+    text-indent: -999em;
+}
+.icons_list .JSBC {
+    background-position: 0 -756px;
+    text-indent: -999em;
+}
+.icons_list .NBCB {
+    background-position: 0 -792px;
+    text-indent: -999em;
+}
+.icons_list .NJCB {
+    background-position: 0 -828px;
+    text-indent: -999em;
+}
+.icons_list .HKBEA {
+    background-position: 0 -108px;
+    text-indent: -999em;
+}
+.icons_list .BJRCB {
+    background-position: 0 -144px;
+    text-indent: -999em;
+}
+.icons_list .BCCB {
+    background-position: 0 -180px;
+    text-indent: -999em;
+}
+.icons_list .CBHB {
+    background-position: 0 -216px;
+    text-indent: -999em;
+}
+.icons_list .SDB {
+    background-position: 0 -972px;
+    text-indent: -999em;
+}
+.icons_list .CIB {
+    background-position: 0 -324px;
+    text-indent: -999em;
+}
+.icons_list .UPOP {
+    background-position: 0 -1119px;
+    text-indent: -999em;
+}
+.icons_list .SHRCB {
+    background-position: 0 -1044px;
+    text-indent: -999em;
+}
+.icons_list .ICBC_QY {
+    background-position: 0 -1158px;
+    text-indent: -999em;
+}
+.icons_list .ABC_QY {
+    background-position: 0 -1194px;
+    text-indent: -999em;
+}
+.icons_list .CCB_QY {
+    background-position: 0 -1229px;
+    text-indent: -999em;
+}
+.icons_list .ALIPAI {
+    background-position: 0 -1299px;
+    text-indent: -999em;
+}
+.icons_list .YSPAI {
+    background-position: 0 -1265px;
+    text-indent: -999em;
+}
+.icons_list .TESTBANK {
+    background: url("../image/test_bank.jpg") no-repeat scroll -1px -1px;
+    text-indent: -999em;
+}
+.other_bank_dialog .icons_list li {
+    margin: 10px 20px 10px 0;
+}
+input.ie6_radio{ _width:20px !important;}
+.ui-button-XL {
+	
+    font-size: 18px;
+    font-weight: 700;
+    height: 50px;
+    padding: 0;
+    width: 220px;
+    background:#ef5f21 none repeat scroll 0 0;
+}

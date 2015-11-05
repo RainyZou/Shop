@@ -1,0 +1,26 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--与以前一样，namespace的值是对应的映射器接口的完整名称 -->
+<mapper namespace="com.liveman.shop.dao.TeacherDao">
+	<!--TeacherMapper接口中getById方法对应的SQL语句。 查询教师及其指导的学生的信息。由于教师、学生都有 id、name、gender等属性，因此给教师的字段都起了别名 -->
+	<select id="getById" parameterType="int" resultMap="supervisorResultMap">
+		select t.id
+		t_id, t.name t_name, t.gender t_gender,
+		t.research_area
+		t_research_area, t.title t_title,
+		s.id,s.name, s.gender,s.major,s.grade
+		from teacher t,student s where t.id=#{id}
+		and s.supervisor_id = t.id
+	</select>
+	<!--教师实体映射 -->
+	<resultMap id="supervisorResultMap" type="com.liveman.shop.entity.Teacher">
+		<id property="id" column="t_id" />
+		<result property="name" column="t_name" />
+		<result property="gender" column="t_gender" />
+		<result property="researchArea" column="t_research_area" />
+		<result property="title" column="t_title" />
+		<!--collection元素映射教师的指导学生集合的属性。resultMap 以命名空间名.resultMap的id的形式，引用studentResultMap。 
+			需要注意的是，上面的select语句中学生的字段名/别名应与 studentResultMap中的column属性一致 -->
+		<collection property="supStudents"
+			resultMap="com.liveman.shop.dao.StudentDao.studentResultMap" />
+	</resultMap>
+</mapper>
